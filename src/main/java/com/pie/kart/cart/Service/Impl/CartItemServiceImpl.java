@@ -38,7 +38,19 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    public CartItem updateCartItem(CartItem cartItem) {
-        return cartRepo.save(cartItem);
+    public CartItem updateCartItem(long id, CartItem cartItem) throws GenericExceptionThrower {
+        Optional<CartItem> existingCartItemOptional = cartRepo.findById(id);
+        if (existingCartItemOptional.isEmpty()) {
+            throw new GenericExceptionThrower("cartItem not found");
+        }
+        CartItem existingCartItem = existingCartItemOptional.get();
+        if (existingCartItem.getId() != id) {
+            throw new GenericExceptionThrower("Product ID mismatch");
+        }
+        existingCartItem.setTitle(cartItem.getTitle());
+        existingCartItem.setProductId(cartItem.getProductId());
+        existingCartItem.setPrice(cartItem.getPrice());
+        existingCartItem.setAvailability(true);
+        return cartRepo.save(existingCartItem);
     }
 }

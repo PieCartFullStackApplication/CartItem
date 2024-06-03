@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pie.kart.cart.Model.CartItem;
 import com.pie.kart.cart.Service.CartItemService;
+import com.pie.kart.cart.Service.Impl.GenericExceptionThrower;
 
 @RestController
 @RequestMapping("/cart")
@@ -34,8 +34,8 @@ public class CartController {
         return CartItemService.getAllCartItems();
     }
 
-    @DeleteMapping
-    public void removeCartItemById(@RequestParam long id) {
+    @DeleteMapping("/{id}")
+    public void removeCartItemById(@PathVariable long id) {
         CartItemService.removeCartItem(id);
     }
 
@@ -44,8 +44,8 @@ public class CartController {
         return CartItemService.createCartItem(CartItem);
     }
 
-    @PutMapping("/update")
-    public CartItem updateCartItem(@RequestBody CartItem CartItem) {
-        return CartItemService.updateCartItem(CartItem);
+    @PutMapping("/update/{id}")
+    public CartItem updateCartItem(@PathVariable long id, @RequestBody CartItem CartItem) throws GenericExceptionThrower {
+        return CartItemService.updateCartItem(id, CartItem);
     }
 }

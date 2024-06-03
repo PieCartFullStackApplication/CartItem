@@ -19,7 +19,7 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String productId;
+    private long productId;
     @NonNull
     private String title;
     private double price;
