@@ -7,6 +7,8 @@ import com.pie.kart.cart.Model.CartItem;
 
 @Repository
 public interface  CartRepository extends JpaRepository<CartItem, Long>  {
+
+    public CartItem findByTitle(String title);
     
 }
 
