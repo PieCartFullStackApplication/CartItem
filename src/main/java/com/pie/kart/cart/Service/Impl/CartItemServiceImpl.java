@@ -10,6 +10,8 @@ import com.pie.kart.cart.Model.CartItem;
 import com.pie.kart.cart.Repo.CartRepository;
 import com.pie.kart.cart.Service.CartItemService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class CartItemServiceImpl implements CartItemService {
 
@@ -52,5 +54,11 @@ public class CartItemServiceImpl implements CartItemService {
         existingCartItem.setPrice(cartItem.getPrice());
         existingCartItem.setAvailability(true);
         return cartRepo.save(existingCartItem);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCartItemsByProductId(long id) {
+        cartRepo.deleteByProductId(id);
     }
 }

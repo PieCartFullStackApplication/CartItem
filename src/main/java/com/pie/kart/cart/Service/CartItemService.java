@@ -16,4 +16,6 @@ public interface CartItemService {
     public CartItem createCartItem(CartItem cartItem);
 
     public CartItem updateCartItem(long id, CartItem cartItem) throws GenericExceptionThrower;
+
+    public void deleteCartItemsByProductId(long id);
 }

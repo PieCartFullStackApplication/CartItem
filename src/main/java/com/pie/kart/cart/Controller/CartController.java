@@ -22,30 +22,37 @@ import com.pie.kart.cart.Service.Impl.GenericExceptionThrower;
 @CrossOrigin(origins = "http://localhost:4200")
 public class CartController {
     @Autowired
-    private CartItemService CartItemService;
+    private CartItemService cartItemService;
 
     @GetMapping("/{id}")
     public CartItem getCartItem(@PathVariable long id) {
-        return CartItemService.getCartItem(id).get();
+        return cartItemService.getCartItem(id).get();
     }
 
     @GetMapping
     public List<CartItem> getAllCartItems() {
-        return CartItemService.getAllCartItems();
+        return cartItemService.getAllCartItems();
     }
 
     @DeleteMapping("/{id}")
     public void removeCartItemById(@PathVariable long id) {
-        CartItemService.removeCartItem(id);
+        cartItemService.removeCartItem(id);
+    }
+
+    @DeleteMapping("/productItem/{id}")
+    public void deleteCartItemsByProductId(@PathVariable long id) {
+        cartItemService.deleteCartItemsByProductId(id);
     }
 
     @PostMapping("/add")
     public CartItem createCartItem(@RequestBody CartItem CartItem) {
-        return CartItemService.createCartItem(CartItem);
+        return cartItemService.createCartItem(CartItem);
     }
 
     @PutMapping("/update/{id}")
     public CartItem updateCartItem(@PathVariable long id, @RequestBody CartItem CartItem) throws GenericExceptionThrower {
-        return CartItemService.updateCartItem(id, CartItem);
+        return cartItemService.updateCartItem(id, CartItem);
     }
+
+
 }
